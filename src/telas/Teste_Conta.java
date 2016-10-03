@@ -1,6 +1,8 @@
 package telas;
 import dominio.Cliente;
 import dominio.Conta;
+import dominio.ContaCorrente;
+import dominio.ContaPoupanca;
 
 import java.util.Scanner;
 
@@ -41,19 +43,25 @@ public class Teste_Conta {
 		
 		Cliente c1 = new Cliente(nome, cpf);
 		Cliente c2 = new Cliente("Joao", "534.142.412-54");
-		Conta cc1 = new Conta(ag, conta, saldo, c1);
-		Conta cc2 = new Conta(1589, 20654, c2);
+		ContaCorrente cc1 = new ContaCorrente(ag, conta, saldo, c1);
+		ContaPoupanca cc2 = new ContaPoupanca(1589, 20654, c2);
 		
 		System.out.println(cc1);
 		System.out.println(cc2);
 		
-		cc1.creditar(credito);
+		cc1.setTaxaCPMF(0.05);
+		cc1.debitar(credito);
 		System.out.println(cc1.getSaldo());
+		System.out.println(cc1.getTotalCPMF());
 		
 		cc1.transferir(cc2, transf);
+		cc2.setTaxaJuros(0.15);
+		cc2.aplicarJuros();
 		
 		System.out.println(cc2);
 		System.out.println(cc1);
+		
+		
 		
 	}
 	

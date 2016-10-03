@@ -1,11 +1,18 @@
 package dominio;
 
-public class Conta {
+public abstract class Conta {
 
 	private static int agencia;
 	private static int numero;
 	private double saldo;
 	private Cliente cliente;
+	
+	public Conta(){
+		
+		this.setAgencia(0);
+		this.setNumero(0);
+		this.setCliente(null);
+	}
 	
 	public Conta (int agencia, int numero, Cliente cliente){
 		
@@ -88,7 +95,7 @@ public class Conta {
 	 */
 	@Override
 	public String toString() {
-		return "Conta [saldo=" + saldo + ", cliente=" + cliente + ", getCliente()=" + getCliente() + ", getAgencia()="
+		return "Conta [saldo=" + saldo + ", cliente=" + getCliente().getNome() + ", CPF=" + getCliente().getCpf() + ", getAgencia()="
 				+ getAgencia() + ", getNumero()=" + getNumero() + ", getSaldo()=" + getSaldo() + "]";
 	}	
 	
