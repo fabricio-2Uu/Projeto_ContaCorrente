@@ -17,17 +17,10 @@ public class ContaPoupanca extends Conta {
 	}
 	
 	public ContaPoupanca (int agencia, int numero, Cliente cliente){
-		
-		this.setAgencia(agencia);
-		this.setNumero(numero);
-		this.setCliente(cliente);
+		super(agencia, numero, cliente);
 	}
 	
 	public ContaPoupanca (int agencia, int numero, double valor, Cliente cliente){
-		
-		this.setAgencia(agencia);
-		this.setNumero(numero);
-		this.setSaldo(valor);
-		this.setCliente(cliente);
+		super(agencia, numero, valor, cliente);
 	}
 }

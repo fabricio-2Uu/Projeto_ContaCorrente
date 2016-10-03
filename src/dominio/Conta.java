@@ -2,29 +2,29 @@ package dominio;
 
 public abstract class Conta {
 
-	private static int agencia;
-	private static int numero;
+	private int agencia;
+	private int numero;
 	private double saldo;
 	private Cliente cliente;
 	
 	public Conta(){
 		
-		this.setAgencia(0);
-		this.setNumero(0);
+		this.agencia = 0;
+		this.numero = 0;
 		this.setCliente(null);
 	}
 	
 	public Conta (int agencia, int numero, Cliente cliente){
 		
-		this.setAgencia(agencia);
-		this.setNumero(numero);
+		this.agencia = agencia;
+		this.numero = numero;
 		this.setCliente(cliente);
 	}
 	
 	public Conta (int agencia, int numero, double valor, Cliente cliente){
 		
-		this.setAgencia(agencia);
-		this.setNumero(numero);
+		this.agencia = agencia;
+		this.numero = numero;
 		this.setSaldo(valor);
 		this.setCliente(cliente);
 	}
@@ -41,16 +41,8 @@ public abstract class Conta {
 		return agencia;
 	}
 
-	public void setAgencia(int agencia) {
-		Conta.agencia = agencia;
-	}
-
 	public int getNumero() {
 		return numero;
-	}
-
-	public void setNumero(int numero) {
-		Conta.numero = numero;
 	}
 
 	public double getSaldo() {
