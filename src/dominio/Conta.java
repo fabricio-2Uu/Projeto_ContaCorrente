@@ -1,11 +1,29 @@
 package dominio;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 public abstract class Conta {
 
 	private int agencia;
 	private int numero;
 	private double saldo;
 	private Cliente cliente;
+	private List<DetalheHistorico> extrato = new ArrayList<DetalheHistorico>();
+	
+	private void registraHistorico(Date data, String tipo, double valor, double saldo) {
+		DetalheHistorico registro = new DetalheHistorico();
+		registro.setDataHora(data);
+		registro.setSaldo(saldo);
+		registro.setTipoOperacao(tipo);
+		registro.setValor(valor);
+		extrato.add(registro);
+	}
+	
+	public List<DetalheHistorico> getHistorico(){
+		return extrato;
+	}
 	
 	public Conta(){
 		
@@ -54,16 +72,24 @@ public abstract class Conta {
 	}
 	
 	public void creditar(double valor){
-		if (valor >= 0)
+		if (valor >= 0){
 			this.saldo += valor;
+			Date data = new Date();
+			String tipo = "crédito";
+			this.registraHistorico(data, tipo, valor, saldo);
+		}
 		else
 			throw new RuntimeException("Erro: Valor a ser creditado deve ser positivo.");
 	}
 	
 	public void debitar(double valor){
 		if (valor >= 0)
-			if (valor <= this.saldo)
+			if (valor <= this.saldo){
 				this.saldo -= valor;
+				Date data = new Date();
+				String tipo = "dédito";
+				this.registraHistorico(data, tipo, (valor*-1), saldo);
+			}
 			else
 				throw new RuntimeException("Erro: Saldo insuficiente para realizar débito.");
 		else
@@ -75,6 +101,11 @@ public abstract class Conta {
 			if (valor <= this.saldo){
 				this.saldo -= valor;
 				conta.creditar(valor);
+				
+				Date data = new Date();
+				String tipo = "transferência";
+				this.registraHistorico(data, tipo, (valor*-1), this.saldo);
+				conta.registraHistorico(data, tipo, valor, conta.getSaldo());
 			}
 			else
 				throw new RuntimeException("Erro: Saldo insuficiente para realizar débito.");
@@ -90,7 +121,6 @@ public abstract class Conta {
 		return "Conta [saldo=" + saldo + ", cliente=" + getCliente().getNome() + ", CPF=" + getCliente().getCpf() + ", getAgencia()="
 				+ getAgencia() + ", getNumero()=" + getNumero() + ", getSaldo()=" + getSaldo() + "]";
 	}	
-	
-	
+
 	
 }

@@ -50,7 +50,7 @@ public class Teste_Conta {
 		System.out.println(cc2);
 		
 		cc1.setTaxaCPMF(0.05);
-		cc1.debitar(credito);
+		cc1.creditar(credito);
 		System.out.println(cc1.getSaldo());
 		System.out.println(cc1.getTotalCPMF());
 		
@@ -58,8 +58,10 @@ public class Teste_Conta {
 		cc2.setTaxaJuros(0.15);
 		cc2.aplicarJuros();
 		
-		System.out.println(cc2);
-		System.out.println(cc1);
+		//System.out.println(cc2);
+		//System.out.println(cc1);
+		System.out.println(cc1.getHistorico());
+		System.out.println(cc2.getHistorico());
 		
 		
 		
