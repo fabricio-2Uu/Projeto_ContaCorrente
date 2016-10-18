@@ -3,7 +3,11 @@ import dominio.Cliente;
 import dominio.Conta;
 import dominio.ContaCorrente;
 import dominio.ContaPoupanca;
+import dominio.DetalheHistorico;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 public class Teste_Conta {
@@ -57,13 +61,21 @@ public class Teste_Conta {
 		cc1.transferir(cc2, transf);
 		cc2.setTaxaJuros(0.15);
 		cc2.aplicarJuros();
+		cc2.creditar(credito/5);
+		cc2.creditar(credito/2);
+		cc2.creditar(credito/9);
 		
 		//System.out.println(cc2);
 		//System.out.println(cc1);
-		System.out.println(cc1.getHistorico());
-		System.out.println(cc2.getHistorico());
+		Date inicio = new Date("01/10/2016");
+		Date fim = new Date("20/10/2016");
+		System.out.println(cc1.quantidadeDepositos(inicio, fim));
 		
+		List<DetalheHistorico> registros = cc2.getHistorico();
+		for (DetalheHistorico registro: registros)
+			System.out.println(registro);
 		
+		System.out.println(cc2.totalDepositos(inicio, fim));		
 		
 	}
 	

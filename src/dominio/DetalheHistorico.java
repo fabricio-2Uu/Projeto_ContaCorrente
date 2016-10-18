@@ -34,7 +34,7 @@ public class DetalheHistorico {
 	}
 	@Override
 	public String toString() {
-		return "DetalheHistorico [dataHora=" + dataHora + ", tipoOperacao="
+		return "Lançamento [dataHora=" + dataHora + ", tipoOperacao = "
 				+ tipoOperacao + ", valor=" + valor + ", saldo=" + saldo + "]";
 	}
 

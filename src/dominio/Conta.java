@@ -12,7 +12,7 @@ public abstract class Conta {
 	private Cliente cliente;
 	private List<DetalheHistorico> extrato = new ArrayList<DetalheHistorico>();
 	
-	private void registraHistorico(Date data, String tipo, double valor, double saldo) {
+	protected void registraHistorico(Date data, String tipo, double valor, double saldo) {
 		DetalheHistorico registro = new DetalheHistorico();
 		registro.setDataHora(data);
 		registro.setSaldo(saldo);
@@ -23,6 +23,38 @@ public abstract class Conta {
 	
 	public List<DetalheHistorico> getHistorico(){
 		return extrato;
+	}
+	
+	public List<DetalheHistorico> getHistorico(Date inicio, Date fim){
+		List<DetalheHistorico> resumo = new ArrayList<DetalheHistorico>();
+		
+		for (DetalheHistorico registro: extrato)
+			if (registro.getDataHora().getTime() >= inicio.getTime() && registro.getDataHora().getTime() <= inicio.getTime()){
+				resumo.add(registro);
+			}
+		return resumo;
+	}
+	
+	public int quantidadeDepositos(Date inicio, Date fim){
+		int quantidade = 0;
+		
+		for (DetalheHistorico registro: extrato)
+			if (registro.getTipoOperacao().equals("crédito")){
+				quantidade += 1;
+			}
+		
+		return quantidade;
+	}
+	
+	public double totalDepositos(Date inicio, Date fim){
+		double somatorio = 0;
+		
+		for (DetalheHistorico registro: extrato)
+			if (registro.getTipoOperacao().equals("crédito")){
+				somatorio += registro.getValor();
+			}
+		
+		return somatorio;
 	}
 	
 	public Conta(){
@@ -87,7 +119,7 @@ public abstract class Conta {
 			if (valor <= this.saldo){
 				this.saldo -= valor;
 				Date data = new Date();
-				String tipo = "dédito";
+				String tipo = "débito";
 				this.registraHistorico(data, tipo, (valor*-1), saldo);
 			}
 			else
